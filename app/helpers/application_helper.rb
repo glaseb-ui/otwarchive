@@ -71,6 +71,12 @@ module ApplicationHelper
     is_current ? span_tag.html_safe : link_code
   end
 
+  # Admin post titles historically allow a small amount of inline formatting.
+  # Keep that behavior while removing all unapproved markup and attributes.
+  def safe_admin_post_title(title)
+    sanitize(title, tags: %w[strong em b i], attributes: [])
+  end
+
   def link_to_rss(link_to_feed)
     link_to content_tag(:span, ts("RSS Feed")), link_to_feed, title: ts("RSS Feed"), class: "rss"
   end

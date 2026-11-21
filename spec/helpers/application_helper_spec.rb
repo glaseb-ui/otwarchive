@@ -3,6 +3,32 @@
 require "spec_helper"
 
 describe ApplicationHelper do
+  describe "#safe_admin_post_title" do
+    it "escapes plain text" do
+      expect(helper.safe_admin_post_title("News & Updates").to_s).to eq("News &amp; Updates")
+    end
+
+    it "preserves explicitly allowed formatting" do
+      expect(helper.safe_admin_post_title("<strong>News</strong>").to_s).to eq("<strong>News</strong>")
+    end
+
+    it "removes script element tags" do
+      result = helper.safe_admin_post_title("<script>alert(1)</script>").to_s
+      expect(result).not_to match(%r{<script\b|</script>}i)
+    end
+
+    it "removes image elements and event-handler attributes" do
+      result = helper.safe_admin_post_title('<img src=x onerror="alert(1)">').to_s
+      expect(result).not_to match(%r{<img|onerror|alert\(1\)}i)
+    end
+
+    it "does not preserve javascript links" do
+      result = helper.safe_admin_post_title('<a href="javascript:alert(1)">Link</a>').to_s
+      expect(result).not_to include("javascript:")
+      expect(result).to include("Link")
+    end
+  end
+
   describe "#creation_id_for_css_classes" do
     context "when creation is ExternalWork" do
       let(:external_work) { create(:external_work) }

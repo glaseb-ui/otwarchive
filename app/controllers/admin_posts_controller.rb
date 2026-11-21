@@ -27,12 +27,12 @@ class AdminPostsController < Admin::BaseController
       @admin_posts = admin_posts.posted.order(published_at: :desc).limit(8)
       @previous_admin_post = admin_posts.posted.order(published_at: :desc).where("published_at < ?", @admin_post.published_at).first
       @next_admin_post = admin_posts.posted.order(published_at: :asc).where("published_at > ?", @admin_post.published_at).first
-      @page_subtitle = @admin_post.title.html_safe
+      @page_subtitle = @admin_post.title
     else
       @admin_posts = admin_posts.unposted.order(created_at: :desc).limit(8)
       @previous_admin_post = admin_posts.unposted.order(created_at: :desc).where("created_at < ?", @admin_post.created_at).first
       @next_admin_post = admin_posts.unposted.order(created_at: :asc).where("created_at > ?", @admin_post.created_at).first
-      @page_subtitle = t(".page_title_draft", title: @admin_post.title.html_safe)
+      @page_subtitle = t(".page_title_draft", title: @admin_post.title)
     end
     @kudos = @admin_post.kudos.with_user.includes(:user).order(created_at: :desc)
     respond_to do |format|
@@ -47,7 +47,7 @@ class AdminPostsController < Admin::BaseController
     @admin_post = AdminPost.find(params[:id])
     authorize(@admin_post)
     
-    @page_subtitle = t(".page_title", title: @admin_post.title.html_safe)
+    @page_subtitle = t(".page_title", title: @admin_post.title)
   end
 
   # GET /admin_posts/new
@@ -74,7 +74,7 @@ class AdminPostsController < Admin::BaseController
     if !params[:edit_button] && @admin_post.valid?
       if params[:preview_button]
         @preview_mode = true
-        @page_subtitle = t("admin_posts.preview.page_title", title: @admin_post.title.html_safe)
+        @page_subtitle = t("admin_posts.preview.page_title", title: @admin_post.title)
         render action: "preview" and return
       elsif !params[:edit_button] && @admin_post.save
         flash[:notice] = t(".success")
@@ -95,7 +95,7 @@ class AdminPostsController < Admin::BaseController
     if !params[:edit_button] && @admin_post.valid?
       if params[:preview_button]
         @preview_mode = true
-        @page_subtitle = t("admin_posts.preview.page_title", title: @admin_post.title.html_safe)
+        @page_subtitle = t("admin_posts.preview.page_title", title: @admin_post.title)
         render :preview and return
       elsif @admin_post.save
         flash[:notice] = t(".success")

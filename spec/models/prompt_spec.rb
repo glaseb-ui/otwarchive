@@ -116,6 +116,11 @@ describe Prompt do
       expect(prompt.errors[:title]).to include("cannot begin with =, +, -, @ or a whitespace character.")
     end
 
+    it "allows punctuation outside the restricted starting characters" do
+      prompt = build(:offer, title: ".allowed", challenge_signup: signup, collection: collection)
+      expect(prompt).to be_valid
+    end
+
     it "can contain restricted characters after the first character" do
       prompt = build(:offer, title: "accept@ble", challenge_signup: signup, collection: collection)
       expect(prompt).to be_valid
