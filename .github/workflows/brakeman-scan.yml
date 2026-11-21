@@ -3,6 +3,10 @@
 
 name: Brakeman Scan
 
+permissions:
+  contents: read
+  security-events: write
+
 on:
   push:
     branches:
