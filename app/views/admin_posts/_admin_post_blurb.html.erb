@@ -1,5 +1,5 @@
 <%# expects admin_post %>
-<dt><%= link_to admin_post.title.html_safe, admin_post %></dt>
+<dt><%= link_to safe_admin_post_title(admin_post.title), admin_post %></dt>
 <dd>
   <p class="datetime">
     <% if admin_post.posted? %>
