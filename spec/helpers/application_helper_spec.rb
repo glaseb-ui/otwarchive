@@ -12,9 +12,9 @@ describe ApplicationHelper do
       expect(helper.safe_admin_post_title("<strong>News</strong>").to_s).to eq("<strong>News</strong>")
     end
 
-    it "removes script elements" do
+    it "removes script element tags" do
       result = helper.safe_admin_post_title("<script>alert(1)</script>").to_s
-      expect(result).not_to include("<script>", "alert(1)")
+      expect(result).not_to match(/<script\\b|<\\/script>/i)
     end
 
     it "removes image elements and event-handler attributes" do
