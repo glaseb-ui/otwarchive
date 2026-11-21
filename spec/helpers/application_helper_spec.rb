@@ -14,12 +14,12 @@ describe ApplicationHelper do
 
     it "removes script element tags" do
       result = helper.safe_admin_post_title("<script>alert(1)</script>").to_s
-      expect(result).not_to match(/<script\\b|<\\/script>/i)
+      expect(result).not_to match(%r{<script\b|</script>}i)
     end
 
     it "removes image elements and event-handler attributes" do
       result = helper.safe_admin_post_title('<img src=x onerror="alert(1)">').to_s
-      expect(result).not_to match(/<img|onerror|alert\(1\)/i)
+      expect(result).not_to match(%r{<img|onerror|alert\(1\)}i)
     end
 
     it "does not preserve javascript links" do
