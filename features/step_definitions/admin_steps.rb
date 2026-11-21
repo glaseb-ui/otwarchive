@@ -666,3 +666,7 @@ end
 Then "I should not see the page title {string}" do |unexpected_title|
   expect(page.title).not_to include(unexpected_title)
 end
+
+Then "the page title should include {string}" do |expected_title|
+  expect(page.title).to include(expected_title)
+end
