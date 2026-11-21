@@ -1,4 +1,6 @@
 name: Deploy AO3
+
+permissions: {}
 on:
   workflow_dispatch:
     inputs:
