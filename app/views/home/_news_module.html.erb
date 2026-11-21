@@ -9,7 +9,7 @@
       <li class="post group">
         <div class="header module">
           <h4 class="heading" id="post_<%= admin_post.id %>_title">
-            <%= link_to admin_post.title.html_safe, admin_post %>
+            <%= link_to safe_admin_post_title(admin_post.title), admin_post %>
           </h4>
           <p class="meta">
             <span class="published">
