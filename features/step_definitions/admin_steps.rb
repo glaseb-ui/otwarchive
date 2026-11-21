@@ -658,3 +658,11 @@ Then "I should see the user id for {string} in the creations page heading" do |l
   user = User.find_by(login: login)
   expect(page).to have_content("Works and Comments by #{login} (#{user.id})")
 end
+
+Then "I should see the page title {string}" do |expected_title|
+  expect(page.title).to include(expected_title)
+end
+
+Then "I should not see the page title {string}" do |unexpected_title|
+  expect(page.title).not_to include(unexpected_title)
+end
