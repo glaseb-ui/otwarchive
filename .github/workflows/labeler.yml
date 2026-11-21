@@ -1,4 +1,9 @@
 name: "Pull Request Labeler"
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
 on:
   - pull_request_target
 
