@@ -19,7 +19,7 @@ describe ApplicationHelper do
 
     it "removes image elements and event-handler attributes" do
       result = helper.safe_admin_post_title('<img src=x onerror="alert(1)">').to_s
-      expect(result).not_to match(/<img|onerror|alert\\(1\\)/i)
+      expect(result).not_to match(/<img|onerror|alert\(1\)/i)
     end
 
     it "does not preserve javascript links" do
