@@ -1,4 +1,7 @@
 name: Check Phrase exports
+
+permissions:
+  contents: read
 on:
   pull_request:
     branches:
