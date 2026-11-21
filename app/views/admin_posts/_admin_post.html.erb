@@ -1,7 +1,7 @@
 <% # expects "admin_post" %>
 <div <% if rtl_language?(admin_post.language) %>dir="rtl"<% end %> class="header">
   <h3 class="heading">
-    <%= link_to admin_post.title.html_safe, admin_post %>
+    <%= link_to safe_admin_post_title(admin_post.title), admin_post %>
   </h3>
 </div>
 <h4 class="landmark heading"><%= ts("Post Header") %></h4>
@@ -13,7 +13,7 @@
     <% end %>
     <% if admin_post.translated_post %>
       <dt class="original translations"><%= ts("Original:") %></dt>
-      <dd class="original translations"><%= link_to admin_post.translated_post.title.html_safe, admin_post.translated_post %></dd>
+      <dd class="original translations"><%= link_to safe_admin_post_title(admin_post.translated_post.title), admin_post.translated_post %></dd>
     <% else %>
       <% translations = admin_post.posted? ? admin_post.translations.posted : admin_post.translations %>
       <% unless translations.blank? %>
